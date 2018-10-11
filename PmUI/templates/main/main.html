@@ -1,0 +1,44 @@
+﻿<div class="content">
+    <h5>Add Product</h5>
+    <form class="form-inline" method="post" ng-submit="addProduct(product)">
+        <input type="text" class="form-control mr-2 mb-2" placeholder="Name" ng-model="product.Name" />
+        <input type="text" class="form-control mr-2 mb-2" placeholder="Brand" ng-model="product.Brand" />
+        <input type="text" class="form-control mr-2 mb-2" placeholder="Type" ng-model="product.Type" />
+        <input type="submit" class="btn btn-primary mb-2" value="Add" />
+    </form>
+
+</div>
+
+<div class="content">
+    <h5>All Products</h5>
+    <table class="table">
+        <tr>
+            <th>No.</th>
+            <th ng-click="sortCol('Name');">Name <i ng-class="nameClass"></i></th>
+            <th ng-click="sortCol('Brand');">Brand <i ng-class="brandClass"></i></th>
+            <th ng-click="sortCol('Type');">Type <i ng-class="typeClass"></i></th>
+            <th>Action</th>
+        </tr>
+        <tr ng-repeat="product in products | orderBy: sortColumn">
+            <td>{{$index + 1}}</td>
+            <td>
+                <span ng-hide="productNameText{{product.Id}}">{{product.Name}}</span>
+                <input type="text" class="form-control" ng-show="productNameInput{{product.Id}}" ng-model="product.Name" />
+            </td>
+            <td>
+                <span ng-hide="productBrandText{{product.Id}}">{{product.Brand}}</span>
+                <input type="text" class="form-control" ng-show="productBrandInput{{product.Id}}" ng-model="product.Brand" />
+            </td>
+            <td>
+                <span ng-hide="productTypeText{{product.Id}}">{{product.Type}}</span>
+                <input type="text" class="form-control" ng-show="productTypeInput{{product.Id}}" ng-model="product.Type" />
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-outline-primary" ng-hide="hideEditButton{{product.Id}}" ng-click="editProduct(product);">Edit</button>
+                <button type="button" class="btn btn-sm btn-outline-danger" ng-hide="hideDeleteButton{{product.Id}}" ng-click="deleteProduct(product.Id);">Delete</button>
+                <button type="button" class="btn btn-sm btn-outline-success" ng-show="showSaveButton{{product.Id}}" ng-click="saveEditProduct(product.Id, product);">Save</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" ng-show="showCancelButton{{product.Id}}" ng-click="cancelEditProduct(product);">Cancel</button>
+            </td>
+        </tr>
+    </table>
+</div>
